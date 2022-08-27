@@ -1,0 +1,1 @@
+rodar o server : manage.py runserver 
