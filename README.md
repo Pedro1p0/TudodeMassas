@@ -1,8 +1,13 @@
-# TUDO DE MASSAS 
+# :bento: TUDO DE MASSAS 
 
-Tudo de massas é um projeto em django, para a disciplina projeto e engenharia de software 
+Tudo de massas é um site de receitas culinarias, onde o usuario poderá postar uma receita e também visualizar outras receitas bem como fazer feedbacks e ter receitas adicionadas a sua lista de favoritos para ele revisita-lás quando quiser vê-las novamente
+projeto em django, para a disciplina projeto e engenharia de software, 
 
-## 🚀 Começando
+## :earth_americas:
+projeto em django, para a disciplina projeto e engenharia de software, 
+
+
+##  Começando
 
 Essas instruções permitirão que você obtenha uma cópia do projeto em operação na sua máquina local para fins de desenvolvimento e teste.
 
