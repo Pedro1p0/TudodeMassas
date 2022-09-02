@@ -7,7 +7,7 @@ projeto em django, para a disciplina projeto e engenharia de software,
 projeto em django, para a disciplina projeto e engenharia de software, 
 
 
-##  Começando
+## :rocket:  Começando
 
 Essas instruções permitirão que você obtenha uma cópia do projeto em operação na sua máquina local para fins de desenvolvimento e teste.
 
