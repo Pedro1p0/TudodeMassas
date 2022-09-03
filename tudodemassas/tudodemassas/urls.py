@@ -15,7 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from users.views import login_view, logout_view, register_view
+
+#  mantenha as URLS em ordem alfabética, menos aquelas que a ordem importa !!! Pedro Vitor 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('login/', login_view),
+    path('logout/',logout_view),
+    path('register/',register_view),
+
 ]
