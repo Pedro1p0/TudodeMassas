@@ -1,6 +1,6 @@
 # :bento: TUDO DE MASSAS 
 
-Tudo de massas é um site de receitas culinarias, onde o usuario poderá postar uma receita e também visualizar outras receitas bem como fazer feedbacks e ter receitas adicionadas a sua lista de favoritos para ele revisita-lás quando quiser vê-las novamente
+Tudo de massas é um site de receitas culinarias, onde o usuario poderá postar uma receita e também visualizar outras receitas, bem como fazer feedbacks e ter receitas adicionadas a sua lista de favoritos para ele revisita-lás quando quiser vê-las novamente.
 projeto em django, para a disciplina projeto e engenharia de software, 
 
 ## :earth_americas: Universidade Federal do Rio Grande do Norte 
