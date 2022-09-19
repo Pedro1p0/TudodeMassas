@@ -33,4 +33,7 @@ def register_view(request):
         user_obj = form.save()
         return redirect('/login')
     context = {'form': form}
-    return render(request, 'users/register.html' , context)
+    return render(request, 'users/cadastro.html' , context)
+
+def home_view(request):
+    return render(request, 'home-view.html')
