@@ -1,0 +1,73 @@
+@charset "UTF-8";
+@font-face{
+    font-family: 'foodlist';
+    src: url('../fontes/Foodlist-Regular.ttf');
+    font-weight: normal;
+}
+
+:root{
+    --cor0: #fadab0;
+    --cor1: #FFAF19;
+    --cor2: #E89517;
+    --cor3: #FF9626;
+    --cor4: #EB7317;
+    --cor5: #FF6A19;
+    --cor6: #FF3D00;
+
+    --fontepadrao: Arial, Verdana, Helvetica, sans-serif;
+    --fontdestaque: 'foodlist', cursive;
+}
+
+*{
+    margin: 0px;
+    padding: 0px;
+}
+body{
+    background-color: antiquewhite;
+}
+
+header>h1{
+    font-family: var(--fontdestaque);
+    font-size: 4em;
+    color:var(--cor6) ;
+}
+header>p{
+    font-family: var(--fontdestaque);
+    font-size: 2em;
+    color:var(--cor6) ;
+}
+nav{
+    background-color: var(--cor4);
+}
+main{
+    background-color: var(--cor0);
+    border-radius: 10px;
+    width: 600px;
+    min-width: 300px;
+    max-width: 800px;
+    
+    
+    box-shadow:0px 0px 10px rgba(0, 0, 0, 0.4) ;
+    
+    margin-top: 30px;
+    margin-bottom: 30px;
+   
+}
+article{
+    margin-left: 20px;
+    margin-right: 190px;
+}
+
+main img{
+    width: 100%;
+}
+
+main h1{
+    font-family: var(--fontdestaque);
+    font-size: 2em;
+    align-self: auto;
+}
+
+footer{
+    background-color: var(--cor4);
+}

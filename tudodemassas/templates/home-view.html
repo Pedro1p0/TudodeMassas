@@ -1,5 +1,26 @@
 {% extends "base.html" %}
+{% load static %}
+{% block content %}
 
-<head> 
-    Ola mundo
+
+<head>
+    <main>
+        <article>
+            <h1>Titulo da receita</h1>
+            <img src="{% static 'images/macarrao.jpg' %}" width="400" height="400" alt="">
+            <p>
+                Descrição da receita
+                aqui ficará toda a descrição da receita logo abaixo da foto.
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut aspernatur voluptate est!
+                 Soluta ex neque iure, alias repudiandae dignissimos deserunt est quaerat voluptatibus asperiores. 
+                 Cum maxime hic nulla deleniti fugit.
+            </p>
+        </article>
+        <article id="article2">
+            <h1>Ola mundo</h1>
+        </article>
+    </main>
+    
+
 </head>
+{% endblock %}

@@ -24,5 +24,6 @@ urlpatterns = [
     path('login/', login_view),
     path('logout/',logout_view),
     path('cadastro/',register_view),
+    path('',home_view),
 
 ]

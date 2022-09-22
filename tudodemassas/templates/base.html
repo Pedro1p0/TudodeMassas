@@ -1,33 +1,38 @@
+{% load static %}
 <!DOCTYPE html>
-<<<<<<< HEAD
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>base</title>
+    <link rel="shortcut icon" href="{%  static 'favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
 <head>
-
-    <h1> TUDO DE MASSAS </h1>         
-    <hr> 
-        <body>
-            {% block content %}
-            
-            {% endblock content %}
-        </body>
-</html>
-=======
-<html>
-    <head>
-        <h1> TUDO DE MASSAS </h1>
-        <h2> Encontre uma receita simples e deciosa </h2>
-    </head>
-    
+  
     <body>
-        {% block content %}
-        
-        {% endblock content %}
-    </body>
-</html>
+        <header>
+            <h1>Tudo de massas</h1>
+            <p>Encontre aqui suas receitas preferidas, para os amantes de massas</p>
+        </header>
+        <nav>
+            <a href="#">Tudo de massas</a>
+            <a href="#">Encontre suas receitas</a>
+            <a href="#">Noticias</a>
+            <a href="#">Sobre</a>
+        </nav>
+        <main>
+            {% block content %}
+                
+            {% endblock content %}
+         </main>
+        <footer>
+            Site criado pela equipe do Tudo de massas <br>
+        </footer>
 
->>>>>>> a4ed8a2df05e7f6bb50cc8fc9a3d61863d7744ae
+    </body>
+
+
+    
+</html>
