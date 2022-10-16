@@ -37,3 +37,9 @@ def register_view(request):
 
 def home_view(request):
     return render(request, 'home-view.html')
+
+def noticias_view(request):
+    return render(request, 'noticias.html')
+
+def sobre_view(request):
+    return render(request,'sobre.html')
