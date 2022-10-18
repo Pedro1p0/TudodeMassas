@@ -1,5 +1,7 @@
+from unicodedata import category
 from django.db import models
 from django.conf import settings
+from django import forms
 # Create your models here.
 
 class receita(models.Model):
@@ -27,3 +29,8 @@ class receita(models.Model):
 
     def __str__(self):
         return self.name
+class ReceitaForm(forms.ModelForm):
+    class Meta:
+        model=receita
+        fields= '__all__'
+            

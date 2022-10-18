@@ -28,6 +28,7 @@ urlpatterns = [
     path('noticias/',noticias_view),
     path('sobre/',sobre_view),
     path('',include('receitas.urls')),
-    path('',include('users.urls'))
+    path('',include('users.urls')),
+    path('',include('receitas.urls'))
 
 ]
