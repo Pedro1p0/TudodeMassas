@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>base</title>
+    <link rel="shortcut icon" href="{%  static 'favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+<head>
+  
+    <body>
+        <header>
+            <h1>Tudo de massas</h1>
+            <p>Encontre aqui suas receitas preferidas, para os amantes de massas</p>
+        </header>
+        <nav>
+            <a href=""><button id="button1">Tudo de massas</button></a>
+            <a href="#"><button id="button2">Encontre suas receitas</button></a>
+            <a href="/noticias"><button id="button3">Noticias</button></a>
+            <a href="/sobre"><button id="button3">Sobre</button></a>
+            <a href="/login"><button id="button4">Entrar</button></a>
+        </nav>
+        <main>
+            {% block content %}
+                
+            {% endblock content %}
+         </main>
+        
+        <footer>
+            Site criado pela equipe do Tudo de massas <br>
+        </footer>
+
+    </body>
+    
+
+    
+</html>

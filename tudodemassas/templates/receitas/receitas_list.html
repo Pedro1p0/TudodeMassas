@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<ul>
+    {% for x in queryset %}
+        <li>
+            <a href="/receita/{{x.id}}/">{{x.name}} - categoria {{x.category}}</a> 
+        {% endfor %}
+        </li>
+</ul>
+
+{% endblock content %}
