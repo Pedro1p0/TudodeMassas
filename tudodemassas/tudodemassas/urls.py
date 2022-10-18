@@ -24,9 +24,10 @@ urlpatterns = [
     path('login/', login_view),
     path('logout/',logout_view),
     path('cadastro/',register_view),
-    path('',home_view),
+    path('',home_view, name = 'home'),
     path('noticias/',noticias_view),
     path('sobre/',sobre_view),
-    path('',include('receitas.urls'))
+    path('',include('receitas.urls')),
+    path('',include('users.urls'))
 
 ]

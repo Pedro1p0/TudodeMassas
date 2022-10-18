@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from receitas.models import receita
 # Create your views here.
 
 def login_view(request):
@@ -43,3 +44,12 @@ def noticias_view(request):
 
 def sobre_view(request):
     return render(request,'sobre.html')
+
+
+def perfil_view(request):
+    receitas_usuario = receita.objects.all().filter(user = request.user)
+    context = { 
+        "queryset":receitas_usuario
+    }
+    
+    return render(request,"perfil.html", context = context)

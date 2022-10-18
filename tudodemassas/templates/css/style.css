@@ -18,6 +18,15 @@
   --fontdestaque: 'foodlist', cursive;
 }
 
+a:link {text-decoration: none;}
+
+a:link {
+  color: var(--cor6);
+}
+a:visited {
+  color: var(--cor6);
+}
+
 body {
   background-color: antiquewhite;
 }
@@ -26,14 +35,25 @@ header > h1 {
   font-family: var(--fontdestaque);
   font-size: 4em;
   color: var(--cor6);
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 header > p {
+  
   font-family: var(--fontdestaque);
   font-size: 2em;
   color: var(--cor6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: antiquewhite;
 }
 

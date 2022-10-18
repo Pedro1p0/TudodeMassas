@@ -13,11 +13,11 @@
   
     <body>
         <header>
-            <h1>Tudo de massas</h1>
+            <h1><a href="{% url 'home' %}" > Tudo de massas  </a></h1>
             <p>Encontre aqui suas receitas preferidas, para os amantes de massas</p>
         </header>
         <nav>
-            <a href=""><button id="button1">Tudo de massas</button></a>
+            <a href="{% url 'home' %}"><button id="button1">Tudo de massas</button></a>
             <a href="#"><button id="button2">Encontre suas receitas</button></a>
             <a href="/noticias"><button id="button3">Noticias</button></a>
             <a href="/sobre"><button id="button3">Sobre</button></a>

@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.conf import settings
 # Create your models here.
 
 class receita(models.Model):
@@ -23,5 +23,7 @@ class receita(models.Model):
     modo_de_preparo = models.TextField(blank=False, null=True)
     #created_at = models.DateField(default=datetime.today, blank=True)
     #updated_at = models.DateTimeField()
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, )
+
     def __str__(self):
         return self.name
