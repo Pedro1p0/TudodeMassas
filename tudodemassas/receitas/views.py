@@ -114,8 +114,7 @@ def receita_list_torta_view(request):
 
 
 @login_required(login_url = '../login')
-def receita_create_view(request):
-    
+def receita_create_view(request,*keys,**kwargs):
     if request.method=='GET':
         form =ReceitaForm()
         context = {
@@ -125,7 +124,8 @@ def receita_create_view(request):
     else:
         form=ReceitaForm(request.POST)
         if form.is_valid():
-            form.instance.user = request.user  
+            form.instance.user = request.user 
+            print(form.instance.user) 
             #form.instance.creat = datetime.now 
             receita = form.save()
             form = ReceitaForm()

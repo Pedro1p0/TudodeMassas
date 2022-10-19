@@ -1,12 +1,11 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block content %}
 
-
-{% block content %}
-
-<h1>{{ object.name }}</h1>
-<h2>Ingredientes : <br></h2>
-<li>{{ object.ingredientes }}</li>
-<h2> Modo de Preparo </h2>
-<p>{{ object.modo_de_preparo }}</p>
-
+<div class="receita-detail">
+  <h1 style="color: #ff3d00">{{ object.name }}</h1>
+  <br />
+  <h2>Ingredientes</h2>
+  <h3>{{ object.ingredientes }}</h3>
+  <h2>Modo de Preparo</h2>
+  <p>{{ object.modo_de_preparo }}</p>
+</div>
 {% endblock content %}

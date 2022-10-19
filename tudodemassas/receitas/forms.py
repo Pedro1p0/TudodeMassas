@@ -6,3 +6,5 @@ class ReceitaModelForm(forms.ModelForm):
     class Meta:
         model = receita
         fields = ['name','category','ingredientes','modo_de_preparo','user']
+        
+        
