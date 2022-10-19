@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'receitas',
+    'bootstrapform',
 ]
 
 MIDDLEWARE = [
@@ -89,6 +90,8 @@ DATABASES = {
     }
 }
 
+# LOGIN_URL='login/'
+# LOGIN_REDIRECT_URL='/path/to/redirecturl'
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators

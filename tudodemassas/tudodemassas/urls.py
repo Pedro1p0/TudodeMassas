@@ -21,13 +21,14 @@ from users.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('login/', login_view),
-    path('logout/',logout_view),
-    path('cadastro/',register_view),
+    path('login/', login_view, name = 'login'),
+    path('logout/',logout_view, name = 'logout'),
+    path('cadastro/',register_view,name ='cadastro'),
     path('',home_view, name = 'home'),
     path('noticias/',noticias_view),
     path('sobre/',sobre_view),
     path('',include('receitas.urls')),
-    path('',include('users.urls'))
+    path('',include('users.urls')),
+    path('',include('receitas.urls'))
 
 ]

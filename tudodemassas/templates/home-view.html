@@ -1,26 +1,98 @@
 {% extends "base.html" %} {% load static %} {% block content %}
 
 <head>
-  <main>
-    <article>
-      <h1>Titulo da receita</h1>
+  <main class="home">
+    <div class="bloco-esquerda">
+      <h3 class="titulos">Bem vindo ao tudo de massas</h3>
       <img
-        src="{% static 'images/macarrao.jpg' %}"
+        src="{% static 'images/foto-home.jpg' %}"
         width="1000"
         height="400"
         alt=""
       />
-      <p>
-        Descrição da receita aqui ficará toda a descrição da receita logo abaixo
-        da foto. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut
-        aspernatur voluptate est! Soluta ex neque iure, alias repudiandae
-        dignissimos deserunt est quaerat voluptatibus asperiores. Cum maxime hic
-        nulla deleniti fugit.
+      <p style="padding-top:30px ;">
+        Aqui voce encontrará as melhores receitas de massas, postadas pelos mais diversos internautas.
       </p>
-    </article>
-    <article id="article2">
-      <h1>Ola mundo</h1>
-    </article>
+    </div>
+    <div class="bloco-direita">
+      <h3 id="titulo-2" class="titulos">Categorias</h3>
+      <div class="artigo">
+        <article >
+          <a href="{% url 'lista_Pizza_receita' %}"><img
+            src="{% static 'images/pizza.jpg' %}"
+            width="60"
+            height="110"
+            alt=""
+            
+          />
+        </a>
+        
+        </article>
+        <article class="espaco">
+          <a href="{% url 'lista_Bolos_receita' %}">
+          <img
+            src="{% static 'images/bolo.jpg' %}"
+            width="60"
+            height="110"
+            alt=""
+          />
+        </a>
+        </article>
+        
+      </div>
+      <div class="artigo">
+        <article >
+          <a href="{% url 'lista_Massas_receita' %}">
+          <img
+            src="{% static 'images/macarrao.jpg' %}"
+            width="60"
+            height="110"
+            alt=""
+            
+          />
+        </a>
+        </article>
+        <article class="espaco">
+          <a href="{% url 'lista_Salgado_receita' %}">
+          <img
+            src="{% static 'images/salgado.jpg' %}"
+            width="100"
+            height="110"
+            alt=""
+          />
+        </a>
+        </article>
+        
+      </div>
+      <div class="artigo">
+        <article >
+          <a href="{% url 'lista_pao_receita' %}">
+          <img
+            src="{% static 'images/pao.jpg' %}"
+            width="60"
+            height="110"
+            alt=""
+            
+          />
+        </a>
+        </article>
+        <article class="espaco">
+          <a href="{% url 'lista_torta_receita' %}">
+          <img
+            src="{% static 'images/torta.jpg' %}"
+            width="60"
+            height="110"
+            alt=""
+          />
+        </article>
+      </a>
+      </div>
+      
+    </div>
+    
+
+    
   </main>
+  
 </head>
 {% endblock %}

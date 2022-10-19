@@ -1,0 +1,10 @@
+{% extends "base.html" %} {% load bootstrap %} {% block content %}
+<h1>Criando Receita</h1>
+
+<div class="cria-receita">
+  <form action="." method="POST">
+    {{ form|bootstrap }} {% csrf_token %}
+    <input type="submit" value="Criar receita" />
+  </form>
+</div>
+{% endblock content %}

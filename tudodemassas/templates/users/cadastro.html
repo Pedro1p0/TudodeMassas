@@ -1,14 +1,15 @@
 {% extends "base.html" %}
-
+{% load bootstrap %}
 
 {% block content %}
 
 {% if not request.user.is_authenticated %}
 
 
-<div style='margin-top: 30px;' > 
-    <form method = 'POST'> {% csrf_token %} 
-        {{ form.as_p }}
+<div style='margin-top: 30px; padding-left: 700px;padding-right: 700px;' > 
+    <form method = 'POST'> {% csrf_token %}
+        {{ form|bootstrap }} 
+        
         <button type="submit" style = 'margin-top: 20px;'>Login</button>
     </form>
     <p>Se já possui uma conta entre <a href='/login'>Aqui</a>!</p>

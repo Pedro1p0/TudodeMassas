@@ -6,7 +6,7 @@
 }
 
 :root {
-  --cor0: #fadab0;
+  --cor0: #f5e9da;
   --cor1: #ffaf19;
   --cor2: #e89517;
   --cor3: #ff9626;
@@ -28,7 +28,13 @@ a:visited {
 }
 
 body {
-  background-color: antiquewhite;
+  background-color: antiquewhite !important; 
+}
+
+.list-group{
+ 
+  padding:10px !important;
+  padding-right:100px !important;
 }
 
 header > h1 {
@@ -50,11 +56,12 @@ header > p {
   align-items: center;
 }
 
-nav {
+.navbar1 {
   display: flex;
+  transform
+  background-color: antiquewhite;
   justify-content: center;
   align-items: center;
-  background-color: antiquewhite;
 }
 
 #button1 {
@@ -116,22 +123,87 @@ nav {
   background-color: var(--cor6);
   color: white;
 }
+#botao-de-pesquisa{
+  color:#ff3d00;
+  border-color: #ff3d00;
+  width: 140px;
+  height: 40px;
+}
 
-main {
+.receita-detail{
+  padding:100px;  
+}
+
+
+#barra-de-pesquisa{ 
+  padding-left:5px;
+  width: 250px !important;
+  height: 40px !important;
+}
+#botao-de-pesquisa:hover{
+  background-color: var(--cor6);
+  color: white;
+}
+.home {
+  display: flex;
   background-color: var(--cor0);
   border-radius: 10px;
-  width: 600px;
+  width: 100%;
+  position:relative;
+
+  left:50%;
+  transform:translateX(-50%);
   min-width: 300px;
-  max-width: 800px;
+  max-width: 1200px;
+  height:800px;
 
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
-
   margin-top: 30px;
-  margin-bottom: 30px;
+  padding-bottom:20px;
+  
 }
-article {
+.bloco-esquerda{
+  padding-top:100px;
+  padding-left:100px;
+  padding-bottom:100px;
+  padding-right:30px;
+  width:55%;
+}
+.bloco-direita{
+  padding-top:100px;
+  padding-left:10px;
+
+}
+.artigo {
+  display:flex;
   margin-left: 20px;
-  margin-right: 190px;
+  margin-right: 100px;
+  padding-left:10px;
+  padding-bottom:30px;
+}
+.espaco{
+  padding-left:30px;
+  
+}
+
+.titulos{
+  font-family: var(--fontdestaque);
+  font-size:35px;
+
+}
+#titulo-2{
+  padding-left:20px;
+}
+
+.pagination{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cria-receita{
+  margin-left:100px !important;
+  margin-right:100px !important;
 }
 
 main img {
@@ -145,5 +217,6 @@ main h1 {
 }
 
 footer {
+  margin-top:20px;
   background-color: var(--cor4);
 }
