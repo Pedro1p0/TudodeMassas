@@ -4,11 +4,43 @@
 {% block content %}
 
 <ul>
-    {% for x in queryset %}
-        <li>
-            <a href="/receita/{{x.id}}/">{{x.name}} - categoria {{x.category}} criado por {{x.user}}</a> 
+    {% for x in receitas %}
+        
+            <!-- <a href="/receita/{{x.id}}/">{{x.name}} - categoria {{x.category}} criado por {{x.user}}</a>  -->
+            
+            
+            <div class="list-group">
+                <a href="/receita/{{x.id}}/" class="list-group-item list-group-item-action flex-column align-items-start">
+                  <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{ x.name }}</h5>
+                    <small class="text-muted">{{x.created}}</small>
+                  </div>
+                  <p class="mb-1"> Categoria : {{x.category}}</p>
+                  <small class="text-muted">Postado por {{x.user}} na data {{x.created}}</small>
+                </a>
+              </div>
+              
         {% endfor %}
-        </li>
+        
 </ul>
 
+<br><br>
+<hr>
+<br><br>
+
+<div class="pagination">
+{% if receitas.has_previous %}
+    <a style="padding-right:15px ;" href="?page=1"> &laquo primeira</a>
+    <br>
+    <a style="padding-right:15px ;"  href="?page={{ receitas.previous_page_number }}">Anterior     </a>
+{% endif %}
+
+Paginas {{receitas.number}} de {{receitas.paginator.num_pages }}
+
+{% if receitas.has_next %}
+    <a style="padding-left:15px ;" href="?page={{ receitas.next_page_number }}">Proximo</a>
+    <br>
+    <a style="padding-left:15px ;"  href="?page={{ receitas.paginator.num_pages }}">ultima &raquo</a>
+{% endif %}
+</div>
 {% endblock content %}

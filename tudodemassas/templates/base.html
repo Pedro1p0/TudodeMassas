@@ -2,12 +2,19 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.6/dist/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>base</title>
     <link rel="shortcut icon" href="{%  static 'favicon.ico' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    
 
 <head>
   
@@ -16,23 +23,40 @@
             <h1><a href="{% url 'home' %}" > Tudo de massas  </a></h1>
             <p>Encontre aqui suas receitas preferidas, para os amantes de massas</p>
         </header>
-        <nav>
+        <nav class="navbar1">
             <a href="{% url 'home' %}"><button id="button1">Tudo de massas</button></a>
-            <a href="#"><button id="button2">Encontre suas receitas</button></a>
-            <a href="/noticias"><button id="button3">Noticias</button></a>
+            <a href="{% url 'lista_receita' %}"><button id="button2">Lista de receitas</button></a>
+            {% if user.is_authenticated %}
+            <a href="{% url 'cria' %}"><button id="button3">Crie uma receita</button></a>
+            {% endif %}
             <a href="/sobre"><button id="button3">Sobre</button></a>
-            <a href="/login"><button id="button4">Entrar</button></a>
+            {% if user.is_authenticated %}
+            <a href="{% url 'perfil' %}"><button id="button4">Perfil</button></a>
+            <a href="{% url 'logout' %}"><button id="button4">Sair </button></a>
+            
+            {% else %}
+            <a href="{% url 'login' %}"><button id="button4">Entrar</button></a>
+            <a href="{% url 'cadastro' %}"><button id="button4">Cadastro</button></a>
+            {% endif %}
+            <form class="form-inline">
+                <input class="form-control mr-sm-2" type="search" name = 'q' id ='barra-de-pesquisa' placeholder="Pesquisar receita" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" id = 'botao-de-pesquisa' type="submit"><i class="fa fa-search"></i></button>
+              </form>
         </nav>
-        <main>
+        
             {% block content %}
+            <main>
+
+
+            </main>
                 
             {% endblock content %}
-         </main>
-        
-        <footer>
+         
+            {% block footer %}
+            <footer>
             Site criado pela equipe do Tudo de massas <br>
-        </footer>
-
+            </footer>
+            {% endblock footer %}
     </body>
     
 

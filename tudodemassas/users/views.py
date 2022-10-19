@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from receitas.models import receita
+from django.core.paginator import Paginator
 # Create your views here.
 
 def login_view(request):
@@ -47,9 +48,14 @@ def sobre_view(request):
 
 
 def perfil_view(request):
-    receitas_usuario = receita.objects.all().filter(user = request.user)
+    receita_queryset = receita.objects.all()
+    p = Paginator(receita.objects.all().filter(user = request.user), 5)
+    page = request.GET.get('page')
+    receitas = p.get_page(page)
     context = { 
-        "queryset":receitas_usuario
+        "queryset":receita_queryset,
+        "receitas": receitas,
     }
-    
+
+
     return render(request,"perfil.html", context = context)
