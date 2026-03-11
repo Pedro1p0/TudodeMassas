@@ -1,29 +1,34 @@
 from django.db import models
 from django.conf import settings
-# Create your models here.
 
-class receita(models.Model):
-    name = models.CharField(max_length=30, blank=False, null=True)
-    Pizzas = 'Pizzas'
-    Massas = 'Massas'
-    Salgados = 'Salgados'
-    Bolos = 'Bolos'
-    Tortas = 'Tortas'
-    Pao = 'Pão Caseiro'
-    category_list = (
-        (Pizzas, 'Pizzas'),
-        (Massas, 'Massas'),
-        (Salgados, 'Salgados'),
-        (Bolos, 'Bolos'),
-        (Tortas, 'Tortas'),
-        (Pao, 'Pão Caseiro'),
-        )
-    category = models.CharField(max_length=20, choices=category_list, default='category')
-    ingredientes = models.TextField(blank=False, null=True)
-    modo_de_preparo = models.TextField(blank=False, null=True)
-    #created_at = models.DateField(default=datetime.today, blank=True)
-    #updated_at = models.DateTimeField()
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, )
+
+class Receita(models.Model):
+
+    class Categoria(models.TextChoices):
+        PIZZAS = 'Pizzas', 'Pizzas'
+        MASSAS = 'Massas', 'Massas'
+        SALGADOS = 'Salgados', 'Salgados'
+        BOLOS = 'Bolos', 'Bolos'
+        TORTAS = 'Tortas', 'Tortas'
+        PAO = 'Pão Caseiro', 'Pão Caseiro'
+
+    name = models.CharField(max_length=100, blank=False)
+    category = models.CharField(
+        max_length=20,
+        choices=Categoria.choices,
+        default=Categoria.MASSAS,
+    )
+    ingredientes = models.TextField(blank=False)
+    modo_de_preparo = models.TextField(blank=False)
+    imagem = models.ImageField(upload_to='receitas/', blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name = 'Receita'
+        verbose_name_plural = 'Receitas'
+        ordering = ['-created_at']

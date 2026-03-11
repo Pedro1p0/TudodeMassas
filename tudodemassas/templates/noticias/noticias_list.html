@@ -3,11 +3,11 @@
 {% block content %}
 
 <div class="flex items-center justify-between mb-4">
-    <h1 class="font-serif text-3xl font-bold text-stone-800">{{ titulo|default:"Todas as Receitas" }}</h1>
-    {% if request.user.is_authenticated %}
-        <a href="{% url 'criar_receita' %}"
+    <h1 class="font-serif text-3xl font-bold text-stone-800">Notícias</h1>
+    {% if request.user.is_staff %}
+        <a href="{% url 'criar_noticia' %}"
             class="bg-amber-600 hover:bg-amber-700 text-white font-semibold px-4 py-2 rounded-lg transition-colors text-sm">
-            + Nova Receita
+            + Nova Notícia
         </a>
     {% endif %}
 </div>
@@ -15,7 +15,7 @@
 {# Barra de busca #}
 <form method="get" class="mb-6">
     <div class="flex gap-2">
-        <input type="text" name="q" value="{{ query }}" placeholder="Buscar receitas por nome, ingrediente ou categoria…"
+        <input type="text" name="q" value="{{ query }}" placeholder="Buscar notícias por título ou conteúdo…"
             class="flex-1 rounded-xl border border-stone-200 px-4 py-2 text-sm text-stone-700 focus:outline-none focus:ring-2 focus:ring-amber-400 bg-white shadow-sm">
         <button type="submit"
             class="bg-amber-600 hover:bg-amber-700 text-white font-semibold px-5 py-2 rounded-xl transition-colors text-sm shadow-sm">
@@ -35,22 +35,23 @@
 </form>
 
 {% if page_obj %}
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {% for receita in page_obj %}
-            <a href="{% url 'detail_receita' receita.id %}"
-                class="bg-white rounded-2xl shadow-sm border border-stone-100 hover:shadow-md transition-shadow overflow-hidden group">
-                {% if receita.imagem %}
-                    <img src="{{ receita.imagem.url }}" alt="{{ receita.name }}"
-                        class="w-full h-44 object-cover group-hover:scale-105 transition-transform duration-300">
+    <div class="space-y-6">
+        {% for noticia in page_obj %}
+            <a href="{% url 'noticia_detail' noticia.id %}"
+                class="bg-white rounded-2xl shadow-sm border border-stone-100 hover:shadow-md transition-shadow overflow-hidden flex flex-col sm:flex-row group">
+                {% if noticia.imagem %}
+                    <img src="{{ noticia.imagem.url }}" alt="{{ noticia.titulo }}"
+                        class="w-full sm:w-56 h-44 object-cover shrink-0 group-hover:scale-105 transition-transform duration-300">
                 {% else %}
-                    <div class="w-full h-44 bg-amber-100 flex items-center justify-center">
-                        <span class="text-5xl">🍝</span>
+                    <div class="w-full sm:w-56 h-44 bg-amber-100 flex items-center justify-center shrink-0">
+                        <span class="text-5xl">📰</span>
                     </div>
                 {% endif %}
-                <div class="p-4">
-                    <span class="text-xs font-semibold text-amber-600 uppercase tracking-wider">{{ receita.category }}</span>
-                    <h2 class="font-serif text-lg font-bold text-stone-800 mt-1">{{ receita.name }}</h2>
-                    <p class="text-stone-500 text-sm mt-1">por {{ receita.user.username }}</p>
+                <div class="p-5 flex flex-col justify-center">
+                    <p class="text-xs text-stone-400 mb-1">{{ noticia.created_at|date:"d/m/Y" }} &mdash; por {{ noticia.autor.username }}</p>
+                    <h2 class="font-serif text-xl font-bold text-stone-800 mb-2 group-hover:text-amber-700 transition-colors">{{ noticia.titulo }}</h2>
+                    <p class="text-stone-500 text-sm line-clamp-3">{{ noticia.conteudo|truncatewords:30 }}</p>
+                    <span class="text-amber-600 text-sm font-semibold mt-3 inline-block">Ler mais &rarr;</span>
                 </div>
             </a>
         {% endfor %}
@@ -95,15 +96,12 @@
 
 {% else %}
     <div class="text-center py-20 text-stone-400">
-        <p class="text-5xl mb-4">🍽️</p>
+        <p class="text-5xl mb-4">📰</p>
         {% if query %}
-            <p class="text-lg">Nenhuma receita encontrada para "<span class="font-semibold">{{ query }}</span>".</p>
-            <a href="?" class="text-amber-600 hover:underline mt-2 inline-block">Ver todas as receitas</a>
+            <p class="text-lg">Nenhuma notícia encontrada para "<span class="font-semibold">{{ query }}</span>".</p>
+            <a href="?" class="text-amber-600 hover:underline mt-2 inline-block">Ver todas as notícias</a>
         {% else %}
-            <p class="text-lg">Nenhuma receita encontrada ainda.</p>
-            {% if request.user.is_authenticated %}
-                <a href="{% url 'criar_receita' %}" class="text-amber-600 hover:underline mt-2 inline-block">Seja o primeiro a adicionar uma!</a>
-            {% endif %}
+            <p class="text-lg">Nenhuma notícia publicada ainda.</p>
         {% endif %}
     </div>
 {% endif %}

@@ -1,26 +1,161 @@
-{% extends "base.html" %} {% load static %} {% block content %}
+{% extends "base.html" %}
 
-<head>
-  <main>
-    <article>
-      <h1>Titulo da receita</h1>
-      <img
-        src="{% static 'images/macarrao.jpg' %}"
-        width="1000"
-        height="400"
-        alt=""
-      />
-      <p>
-        Descrição da receita aqui ficará toda a descrição da receita logo abaixo
-        da foto. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut
-        aspernatur voluptate est! Soluta ex neque iure, alias repudiandae
-        dignissimos deserunt est quaerat voluptatibus asperiores. Cum maxime hic
-        nulla deleniti fugit.
-      </p>
-    </article>
-    <article id="article2">
-      <h1>Ola mundo</h1>
-    </article>
-  </main>
-</head>
+{% block content %}
+
+{# ── HERO ─────────────────────────────────────────────── #}
+<section class="relative rounded-3xl overflow-hidden mb-12 bg-gradient-to-br from-amber-800 to-amber-600 text-white">
+    <div class="absolute inset-0 opacity-10"
+        style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');">
+    </div>
+    <div class="relative px-8 py-16 text-center max-w-2xl mx-auto">
+        <p class="text-amber-200 text-sm font-semibold uppercase tracking-widest mb-3">O melhor da culinária italiana</p>
+        <h1 class="font-serif text-5xl md:text-6xl font-bold mb-4 leading-tight">Tudo de Massas</h1>
+        <p class="text-amber-100 text-lg mb-10 leading-relaxed">
+            Descubra, crie e compartilhe receitas incríveis de massas, pizzas, bolos e muito mais.
+        </p>
+
+        {# Barra de busca central #}
+        <form action="{% url 'lista_receita' %}" method="get" class="flex gap-2 max-w-lg mx-auto mb-8">
+            <input type="text" name="q" placeholder="Buscar receitas, ingredientes…"
+                class="flex-1 rounded-xl px-5 py-3 text-stone-700 text-sm focus:outline-none focus:ring-2 focus:ring-amber-300 shadow-md">
+            <button type="submit"
+                class="bg-white text-amber-700 hover:bg-amber-50 font-semibold px-5 py-3 rounded-xl transition-colors shadow-md text-sm whitespace-nowrap">
+                🔍 Buscar
+            </button>
+        </form>
+
+        <div class="flex gap-3 justify-center flex-wrap">
+            <a href="{% url 'lista_receita' %}"
+                class="bg-white text-amber-700 hover:bg-amber-50 font-semibold px-6 py-2.5 rounded-xl transition-colors shadow text-sm">
+                Ver Todas as Receitas
+            </a>
+            {% if not request.user.is_authenticated %}
+                <a href="{% url 'cadastro' %}"
+                    class="border border-white text-white hover:bg-white/10 font-semibold px-6 py-2.5 rounded-xl transition-colors text-sm">
+                    Criar Conta
+                </a>
+            {% else %}
+                <a href="{% url 'criar_receita' %}"
+                    class="border border-white text-white hover:bg-white/10 font-semibold px-6 py-2.5 rounded-xl transition-colors text-sm">
+                    + Adicionar Receita
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+{# ── CATEGORIAS ────────────────────────────────────────── #}
+{% if categorias %}
+<section class="mb-12">
+    <h2 class="font-serif text-2xl font-bold text-stone-700 mb-4">Explorar por Categoria</h2>
+    <div class="flex gap-2 flex-wrap">
+        {% for value, label in categorias %}
+            <a href="{% url 'lista_receita' %}?q={{ value }}"
+                class="px-4 py-2 rounded-full bg-white border border-stone-200 text-stone-600 hover:bg-amber-50 hover:border-amber-400 hover:text-amber-700 text-sm font-medium transition-colors shadow-sm">
+                {{ label }}
+            </a>
+        {% endfor %}
+        <a href="{% url 'lista_receita' %}"
+            class="px-4 py-2 rounded-full bg-amber-100 border border-amber-200 text-amber-800 hover:bg-amber-200 text-sm font-medium transition-colors">
+            Ver tudo
+        </a>
+    </div>
+</section>
+{% endif %}
+
+{# ── RECEITAS RECENTES ─────────────────────────────────── #}
+{% if receitas_recentes %}
+<section class="mb-14">
+    <div class="flex items-center justify-between mb-5">
+        <h2 class="font-serif text-2xl font-bold text-stone-700">Receitas Recentes</h2>
+        <a href="{% url 'lista_receita' %}" class="text-amber-600 hover:text-amber-700 text-sm font-semibold transition-colors">
+            Ver todas &rarr;
+        </a>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {% for receita in receitas_recentes %}
+            <a href="{% url 'detail_receita' receita.id %}"
+                class="bg-white rounded-2xl shadow-sm border border-stone-100 hover:shadow-md transition-all duration-200 overflow-hidden group">
+                {% if receita.imagem %}
+                    <img src="{{ receita.imagem.url }}" alt="{{ receita.name }}"
+                        class="w-full h-44 object-cover group-hover:scale-105 transition-transform duration-300">
+                {% else %}
+                    <div class="w-full h-44 bg-gradient-to-br from-amber-100 to-amber-50 flex items-center justify-center">
+                        <span class="text-5xl">🍝</span>
+                    </div>
+                {% endif %}
+                <div class="p-4">
+                    <span class="text-xs font-semibold text-amber-600 uppercase tracking-wider">{{ receita.category }}</span>
+                    <h3 class="font-serif text-lg font-bold text-stone-800 mt-1 group-hover:text-amber-700 transition-colors">{{ receita.name }}</h3>
+                    <p class="text-stone-400 text-xs mt-1">por {{ receita.user.username }} &middot; {{ receita.created_at|date:"d/m/Y" }}</p>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+{# ── NOTÍCIAS RECENTES ─────────────────────────────────── #}
+{% if noticias_recentes %}
+<section class="mb-14">
+    <div class="flex items-center justify-between mb-5">
+        <h2 class="font-serif text-2xl font-bold text-stone-700">Últimas Notícias</h2>
+        <a href="{% url 'noticias' %}" class="text-amber-600 hover:text-amber-700 text-sm font-semibold transition-colors">
+            Ver todas &rarr;
+        </a>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        {% for noticia in noticias_recentes %}
+            <a href="{% url 'noticia_detail' noticia.id %}"
+                class="bg-white rounded-2xl shadow-sm border border-stone-100 hover:shadow-md transition-all duration-200 overflow-hidden group flex flex-col">
+                {% if noticia.imagem %}
+                    <img src="{{ noticia.imagem.url }}" alt="{{ noticia.titulo }}"
+                        class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300">
+                {% else %}
+                    <div class="w-full h-40 bg-gradient-to-br from-stone-100 to-amber-50 flex items-center justify-center">
+                        <span class="text-5xl">📰</span>
+                    </div>
+                {% endif %}
+                <div class="p-4 flex flex-col flex-1">
+                    <p class="text-xs text-stone-400 mb-1">{{ noticia.created_at|date:"d/m/Y" }}</p>
+                    <h3 class="font-serif text-base font-bold text-stone-800 mb-2 group-hover:text-amber-700 transition-colors leading-snug flex-1">
+                        {{ noticia.titulo }}
+                    </h3>
+                    <p class="text-stone-500 text-xs line-clamp-2">{{ noticia.conteudo|truncatewords:20 }}</p>
+                    <span class="text-amber-600 text-xs font-semibold mt-3 inline-block">Ler mais &rarr;</span>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+{# ── CTA FINAL ─────────────────────────────────────────── #}
+{% if not request.user.is_authenticated %}
+<section class="rounded-2xl bg-amber-50 border border-amber-100 px-8 py-10 text-center">
+    <h2 class="font-serif text-2xl font-bold text-stone-800 mb-2">Faça parte da comunidade</h2>
+    <p class="text-stone-500 mb-6">Crie conta gratuitamente e comece a compartilhar suas receitas favoritas.</p>
+    <div class="flex gap-3 justify-center">
+        <a href="{% url 'cadastro' %}"
+            class="bg-amber-600 hover:bg-amber-700 text-white font-semibold px-6 py-3 rounded-xl transition-colors">
+            Criar Conta Grátis
+        </a>
+        <a href="{% url 'login' %}"
+            class="border border-amber-300 text-amber-700 hover:bg-amber-100 font-semibold px-6 py-3 rounded-xl transition-colors">
+            Entrar
+        </a>
+    </div>
+</section>
+{% else %}
+<section class="rounded-2xl bg-amber-50 border border-amber-100 px-8 py-10 text-center">
+    <h2 class="font-serif text-2xl font-bold text-stone-800 mb-2">Tem uma receita especial?</h2>
+    <p class="text-stone-500 mb-6">Compartilhe com a comunidade e inspire outras pessoas na cozinha.</p>
+    <a href="{% url 'criar_receita' %}"
+        class="bg-amber-600 hover:bg-amber-700 text-white font-semibold px-6 py-3 rounded-xl transition-colors inline-block">
+        + Publicar Receita
+    </a>
+</section>
+{% endif %}
+
 {% endblock %}
+

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="max-w-2xl mx-auto text-center py-16">
+    <p class="text-8xl mb-6">🍝</p>
+    <h1 class="font-serif text-4xl font-bold text-stone-800 mb-3">Página não encontrada</h1>
+    <p class="text-stone-500 text-lg mb-8">
+        Parece que essa receita se perdeu pelo caminho... <br>
+        O endereço que você acessou não existe.
+    </p>
+    <a href="{% url 'home' %}"
+        class="bg-amber-600 hover:bg-amber-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors inline-block">
+        Voltar para o início
+    </a>
+</div>
+
+{% endblock content %}

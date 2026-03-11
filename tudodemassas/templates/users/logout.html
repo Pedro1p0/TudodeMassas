@@ -1,21 +1,33 @@
 {% extends "base.html" %}
 
-
 {% block content %}
 
 {% if request.user.is_authenticated %}
 
-<div style='margin-top: 20px;' > 
-    <form method = 'POST'> {% csrf_token %} 
-
-        <p> Você quer mesmo deslogar ? </p>
-
-        <button type="submit" style = 'margin-top: 10px;'>Sim!</button>
-    </form>
+<div class="max-w-sm mx-auto">
+    <div class="bg-white rounded-2xl shadow-sm border border-stone-100 p-8 text-center">
+        <p class="text-stone-600 mb-1">Olá, <span class="font-semibold">{{ request.user.username }}</span>.</p>
+        <p class="text-stone-500 text-sm mb-6">Tem certeza que deseja sair?</p>
+        <form method="POST" class="flex gap-3 justify-center">
+            {% csrf_token %}
+            <button type="submit"
+                class="bg-amber-600 hover:bg-amber-700 text-white font-semibold px-6 py-2 rounded-lg transition-colors">
+                Sim, sair
+            </button>
+            <a href="{% url 'home' %}"
+                class="border border-stone-300 hover:bg-stone-100 text-stone-700 font-semibold px-6 py-2 rounded-lg transition-colors">
+                Cancelar
+            </a>
+        </form>
+    </div>
 </div>
 
 {% else %}
-
-<p> Você não está logado, gostaria de <a href="/login/"> logar</a> ?> </p>
+<div class="text-center py-12">
+    <p class="text-stone-600">Você não está logado.
+        <a href="{% url 'login' %}" class="text-amber-600 hover:underline">Entrar</a>.
+    </p>
+</div>
 {% endif %}
+
 {% endblock %}

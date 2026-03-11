@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="max-w-2xl mx-auto">
+
+    {% if noticia.imagem %}
+        <img src="{{ noticia.imagem.url }}" alt="{{ noticia.titulo }}"
+            class="w-full h-64 object-cover rounded-2xl mb-6 shadow-sm">
+    {% else %}
+        <div class="w-full h-48 bg-amber-100 rounded-2xl flex items-center justify-center mb-6">
+            <span class="text-7xl">📰</span>
+        </div>
+    {% endif %}
+
+    <div class="bg-white rounded-2xl shadow-sm border border-stone-100 p-8">
+
+        <p class="text-xs text-stone-400 mb-1">
+            {{ noticia.created_at|date:"d/m/Y \à\s H:i" }} &mdash; por {{ noticia.autor.username }}
+            {% if noticia.updated_at != noticia.created_at %}
+                &mdash; <span class="italic">atualizado em {{ noticia.updated_at|date:"d/m/Y" }}</span>
+            {% endif %}
+        </p>
+        <h1 class="font-serif text-3xl font-bold text-stone-800 mt-1 mb-6">{{ noticia.titulo }}</h1>
+
+        <hr class="border-stone-100 mb-6">
+
+        <div class="text-stone-700 text-sm leading-relaxed whitespace-pre-line">
+            {{ noticia.conteudo }}
+        </div>
+
+        {% if request.user.is_staff %}
+            <hr class="border-stone-100 my-6">
+            <div class="flex gap-3">
+                <a href="{% url 'editar_noticia' noticia.id %}"
+                    class="border border-amber-500 text-amber-600 hover:bg-amber-50 font-semibold px-5 py-2 rounded-lg transition-colors text-sm">
+                    Editar
+                </a>
+                <a href="{% url 'excluir_noticia' noticia.id %}"
+                    class="border border-red-400 text-red-500 hover:bg-red-50 font-semibold px-5 py-2 rounded-lg transition-colors text-sm">
+                    Excluir
+                </a>
+            </div>
+        {% endif %}
+
+    </div>
+
+    <div class="mt-4">
+        <a href="{% url 'noticias' %}" class="text-amber-600 hover:underline text-sm font-semibold">&larr; Voltar para Notícias</a>
+    </div>
+</div>
+
+{% endblock content %}

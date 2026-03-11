@@ -14,20 +14,21 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include 
-from users.views import *
+from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+from users.views import login_view, logout_view, register_view, home_view, sobre_view
 
-#  mantenha as URLS em ordem alfabética, menos aquelas que a ordem importa !!! Pedro Vitor 
+#  mantenha as URLS em ordem alfabética, menos aquelas que a ordem importa !!! Pedro Vitor
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('login/', login_view),
-    path('logout/',logout_view),
-    path('cadastro/',register_view),
-    path('',home_view, name = 'home'),
-    path('noticias/',noticias_view),
-    path('sobre/',sobre_view),
-    path('',include('receitas.urls')),
-    path('',include('users.urls'))
-
-]
+    path('login/', login_view, name='login'),
+    path('logout/', logout_view, name='logout'),
+    path('cadastro/', register_view, name='cadastro'),
+    path('', home_view, name='home'),
+    path('noticias/', include('noticias.urls')),
+    path('sobre/', sobre_view, name='sobre'),
+    path('', include('receitas.urls')),
+    path('', include('users.urls')),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

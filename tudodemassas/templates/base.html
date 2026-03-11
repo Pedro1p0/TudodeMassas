@@ -5,36 +5,104 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>base</title>
-    <link rel="shortcut icon" href="{%  static 'favicon.ico' %}">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Tudo de Massas</title>
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Estilo global para inputs do Django (UserCreationForm etc.) */
+        input[type="text"], input[type="password"], input[type="email"], select, textarea {
+            width: 100%;
+            border: 1px solid #d6d3d1;
+            border-radius: 0.5rem;
+            padding: 0.5rem 0.75rem;
+            color: #1c1917;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            outline: none;
+            transition: box-shadow 0.15s;
+        }
+        input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus, select:focus, textarea:focus {
+            border-color: transparent;
+            box-shadow: 0 0 0 2px #d97706;
+        }
+    </style>
+</head>
+<body class="bg-amber-50 min-h-screen flex flex-col font-sans text-stone-800">
 
-<head>
-  
-    <body>
-        <header>
-            <h1><a href="{% url 'home' %}" > Tudo de massas  </a></h1>
-            <p>Encontre aqui suas receitas preferidas, para os amantes de massas</p>
-        </header>
-        <nav>
-            <a href="{% url 'home' %}"><button id="button1">Tudo de massas</button></a>
-            <a href="#"><button id="button2">Encontre suas receitas</button></a>
-            <a href="/noticias"><button id="button3">Noticias</button></a>
-            <a href="/sobre"><button id="button3">Sobre</button></a>
-            <a href="/login"><button id="button4">Entrar</button></a>
-        </nav>
-        <main>
-            {% block content %}
-                
-            {% endblock content %}
-         </main>
-        
-        <footer>
-            Site criado pela equipe do Tudo de massas <br>
-        </footer>
+    <header class="bg-amber-800 text-white">
+        <div class="max-w-5xl mx-auto px-4 py-5 flex items-center justify-between">
+            <div>
+                <a href="{% url 'home' %}" class="font-serif text-3xl font-bold tracking-tight hover:text-amber-100 transition-colors">
+                    Tudo de Massas
+                </a>
+                <p class="text-amber-200 text-sm mt-0.5">Receitas para os amantes de massas</p>
+            </div>
+        </div>
+    </header>
 
-    </body>
-    
+    <nav class="bg-amber-700 text-white shadow-md">
+        <div class="max-w-5xl mx-auto px-4 py-2.5 flex gap-6 flex-wrap items-center text-sm font-medium">
+            <a href="{% url 'home' %}" class="hover:text-amber-200 transition-colors">In&iacute;cio</a>
+            <a href="{% url 'lista_receita' %}" class="hover:text-amber-200 transition-colors">Receitas</a>
+            <a href="{% url 'lista_pizza_receita' %}" class="hover:text-amber-200 transition-colors">Pizzas</a>
+            <a href="{% url 'lista_massas_receita' %}" class="hover:text-amber-200 transition-colors">Massas</a>
+            <a href="{% url 'noticias' %}" class="hover:text-amber-200 transition-colors">Not&iacute;cias</a>
+            <a href="{% url 'sobre' %}" class="hover:text-amber-200 transition-colors">Sobre</a>
+            <div class="ml-auto flex gap-4 items-center">
+                {% if request.user.is_authenticated %}
+                    <a href="{% url 'criar_receita' %}" class="bg-amber-500 hover:bg-amber-400 text-white px-3 py-1 rounded-lg transition-colors">+ Nova Receita</a>
+                    <a href="{% url 'perfil' %}" class="hover:text-amber-200 transition-colors">Perfil</a>
+                    <a href="{% url 'logout' %}" class="hover:text-amber-200 transition-colors">Sair</a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="hover:text-amber-200 transition-colors">Entrar</a>
+                    <a href="{% url 'cadastro' %}" class="bg-amber-500 hover:bg-amber-400 text-white px-3 py-1 rounded-lg transition-colors">Cadastrar</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
 
-    
+    <main class="max-w-5xl mx-auto px-4 py-8 flex-1 w-full">
+
+        {% if messages %}
+            <div class="mb-6 space-y-2">
+                {% for message in messages %}
+                    <div class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium
+                        {% if message.tags == 'success' %}bg-green-50 text-green-700 border border-green-200
+                        {% elif message.tags == 'error' %}bg-red-50 text-red-700 border border-red-200
+                        {% elif message.tags == 'warning' %}bg-amber-50 text-amber-700 border border-amber-200
+                        {% else %}bg-stone-50 text-stone-700 border border-stone-200{% endif %}">
+                        <span>
+                            {% if message.tags == 'success' %}✓{% elif message.tags == 'error' %}✕{% else %}ℹ{% endif %}
+                        </span>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% block content %}
+        {% endblock content %}
+    </main>
+
+    <footer class="bg-amber-900 text-amber-200 text-center py-5 text-sm mt-auto">
+        &copy; Tudo de Massas &mdash; Feito com carinho para os amantes de massas
+    </footer>
+
+</body>
 </html>
