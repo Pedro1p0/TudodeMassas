@@ -1,5 +1,7 @@
 # 🍝 Tudo de Massas
 
+[![CI](https://github.com/Pedro1p0/TudodeMassas/actions/workflows/ci.yml/badge.svg)](https://github.com/Pedro1p0/TudodeMassas/actions/workflows/ci.yml)
+
 Plataforma de receitas culinárias desenvolvida com Django. Usuários podem publicar, editar e excluir suas próprias receitas, explorar receitas de outros usuários, buscar por ingredientes ou categorias, e acompanhar as últimas notícias do mundo das massas.
 
 Projeto acadêmico desenvolvido para a disciplina **Projeto e Engenharia de Software** — Universidade Federal do Rio Grande do Norte (UFRN).
@@ -26,11 +28,13 @@ Projeto acadêmico desenvolvido para a disciplina **Projeto e Engenharia de Soft
 | Camada | Tecnologia |
 |---|---|
 | Backend | [Django](https://www.djangoproject.com/) 4.1+ |
-| Banco de dados | SQLite (desenvolvimento) |
+| Banco de dados | PostgreSQL 15 |
 | Frontend | [Tailwind CSS](https://tailwindcss.com/) via CDN |
 | Tipografia | Google Fonts — Playfair Display + Inter |
 | Imagens | Pillow |
 | Dados de teste | Faker |
+| Containers | Docker + Docker Compose |
+| CI | GitHub Actions |
 
 ---
 
@@ -38,45 +42,35 @@ Projeto acadêmico desenvolvido para a disciplina **Projeto e Engenharia de Soft
 
 ### Pré-requisitos
 
-- Python 3.10 ou superior
-- Git
+- [Docker](https://www.docker.com/) e Docker Compose
 
 ### 1. Clone o repositório
 
 ```bash
-git clone https://github.com/seu-usuario/TudodeMassas.git
+git clone https://github.com/Pedro1p0/TudodeMassas.git
 cd TudodeMassas
 ```
 
-### 2. Crie e ative o ambiente virtual
+### 2. Configure as variáveis de ambiente
 
 ```bash
-# Windows
-python -m venv venv
-venv\Scripts\activate
-
-# Linux / macOS
-python -m venv venv
-source venv/bin/activate
+cp .env.example .env
 ```
 
-### 3. Instale as dependências
+Edite o `.env` se quiser alterar senha do banco ou outras configurações. Para desenvolvimento, os valores padrão já funcionam.
+
+### 3. Suba os containers
 
 ```bash
-pip install -r requirements.txt
+docker compose up --build
 ```
 
-### 4. Execute as migrações
+As migrations rodam automaticamente. Acesse em: **http://localhost:8000**
+
+### 4. (Opcional) Popule o banco com dados de teste
 
 ```bash
-cd tudodemassas
-python manage.py migrate
-```
-
-### 5. (Opcional) Popule o banco com dados de teste
-
-```bash
-python manage.py populate_db
+docker compose exec web python manage.py populate_db
 ```
 
 Isso cria **11 usuários**, **22 receitas** e **10 notícias** prontos para uso.
@@ -88,23 +82,32 @@ Isso cria **11 usuários**, **22 receitas** e **10 notícias** prontos para uso.
 Para limpar tudo e recriar do zero:
 
 ```bash
-python manage.py populate_db --limpar
+docker compose exec web python manage.py populate_db --limpar
 ```
 
-### 6. Crie um superusuário (acesso ao Django Admin)
+### 5. (Opcional) Crie um superusuário
 
 ```bash
-python manage.py createsuperuser
+docker compose exec web python manage.py createsuperuser
 ```
 
-### 7. Inicie o servidor
+Django Admin disponível em: **http://localhost:8000/admin**
+
+---
+
+## 🧪 Testes
 
 ```bash
-python manage.py runserver
+docker compose exec web python manage.py test --verbosity=2
 ```
 
-Acesse em: **http://127.0.0.1:8000**  
-Django Admin: **http://127.0.0.1:8000/admin**
+---
+
+## 🔍 Lint
+
+```bash
+docker compose exec web flake8 tudodemassas/
+```
 
 ---
 
@@ -112,15 +115,32 @@ Django Admin: **http://127.0.0.1:8000/admin**
 
 ```
 TudodeMassas/
+├── Dockerfile
+├── docker-compose.yml
+├── entrypoint.sh
 ├── requirements.txt
-├── tudodemassas/               # Raiz do projeto Django
-│   ├── manage.py
-│   ├── tudodemassas/           # Configurações (settings, urls)
-│   ├── receitas/               # App de receitas (CRUD)
-│   ├── noticias/               # App de notícias (staff only)
-│   ├── users/                  # App de autenticação e perfil
-│   └── templates/              # Templates HTML globais e por app
+├── .env.example
+├── .github/
+│   └── workflows/
+│       └── ci.yml          # Pipeline: lint → testes → docker build
+└── tudodemassas/           # Raiz do projeto Django
+    ├── manage.py
+    ├── tudodemassas/       # Configurações (settings, urls)
+    ├── receitas/           # App de receitas (CRUD)
+    ├── noticias/           # App de notícias (staff only)
+    ├── users/              # App de autenticação e perfil
+    └── templates/          # Templates HTML globais e por app
 ```
+
+---
+
+## ⚙️ CI — GitHub Actions
+
+A cada push ou pull request na `main`, a pipeline executa automaticamente:
+
+1. **Lint** — verifica estilo de código com `flake8`
+2. **Testes** — roda os testes Django contra um PostgreSQL real
+3. **Docker Build** — garante que a imagem builda sem erros
 
 ---
 
