@@ -84,7 +84,7 @@ class ReceitaViewTest(TestCase):
         self.assertTrue(Receita.objects.filter(name='Bolo Criado no Teste').exists())
 
     def test_excluir_receita_de_outro_usuario_nao_permitido(self):
-        outro_user = User.objects.create_user(username='outro', password='outro123')
+        User.objects.create_user(username='outro', password='outro123')
         self.client.login(username='outro', password='outro123')
         response = self.client.post(reverse('excluir_receita', args=[self.receita.id]))
         self.assertNotEqual(response.status_code, 200)

@@ -1,7 +1,1 @@
-from django.db import models
-
-# Create your models here.
-
-
-
-
+# Models customizados do app users (atualmente usa o model padrão do Django).

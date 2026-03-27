@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib import messages
 from receitas.models import Receita
+
 
 def login_view(request):
     if request.method == "POST":
@@ -19,7 +20,6 @@ def login_view(request):
     return render(request, "users/login.html", context)
 
 
-    
 def logout_view(request):
     if request.method == 'POST':
         logout(request)
@@ -28,7 +28,6 @@ def logout_view(request):
     return render(request, "users/logout.html", {})
 
 
-    
 def register_view(request):
     form = UserCreationForm(request.POST or None)
     if form.is_valid():
@@ -38,8 +37,8 @@ def register_view(request):
     context = {'form': form}
     return render(request, 'users/cadastro.html', context)
 
+
 def home_view(request):
-    from receitas.models import Receita
     from noticias.models import Noticia
     receitas_recentes = Receita.objects.all()[:6]
     noticias_recentes = Noticia.objects.all()[:3]
@@ -50,11 +49,12 @@ def home_view(request):
         'categorias': categorias,
     })
 
+
 def noticias_view(request):
     return redirect('noticias')
 
+
 def sobre_view(request):
-    from receitas.models import Receita
     categorias = [c.label for c in Receita.Categoria]
     return render(request, 'sobre.html', {'categorias': categorias})
 

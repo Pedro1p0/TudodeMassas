@@ -76,7 +76,6 @@ STATICFILES_DIRS = [
     BASE_DIR / "templates/",
     BASE_DIR / "templates/images/",
     BASE_DIR / "templates/css/",
-    
 ]
 
 WSGI_APPLICATION = 'tudodemassas.wsgi.application'

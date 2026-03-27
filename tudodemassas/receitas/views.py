@@ -99,4 +99,3 @@ def receita_delete_view(request, id):
         messages.success(request, 'Receita excluída com sucesso.')
         return redirect('perfil')
     return render(request, 'receitas/receita_confirm_delete.html', {'object': receita})
-
